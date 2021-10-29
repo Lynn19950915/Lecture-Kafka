@@ -7,8 +7,11 @@
 - 常適用於讀寫工作龐雜，且亟需同步化、高可用及延展性的商業運作中。
 
 2. 基本角色
-- 輸入源 (source)：稱為 `producer。負責將資料寫入`，可為 Oracle, PyCharm 等。
-- 輸出槽 (sink)：稱為 `consumer。負責將資料讀出`，可為 PyCharm, ES (elastic-search) 等。
+
+|  | 專稱 | 負責 | 常見工具 |
+| :---: | :---: | :---: | :---: |
+| 輸入源 (source) | `producer`| `將資料寫入` | Oracle, PyCharm 等 |
+| 輸出槽 (sink) | `consumer` | `將資料讀出` | PyCharm, ES (Elasticsearch) 等 |
 
 3. 與 HDFS 之比較
 - 均可做 `map reduce` (=partition, 資料分片)，透過平行運算增進處理效率。
@@ -29,10 +32,10 @@
 
 3. partition
 - 作資料分散儲存用，為逐筆紀錄 (record) 寫入之處。
-- 限定讀取於不同成員，故 N 份 partition 最多給 N 台 consumer group 讀取。
+- `限定讀取於不同成員`，故 N 份 partition 最多給 N 台 consumer group 讀取。
 - 已寫入者無法變更。確保單一 partition 具備順序及 key 的一致性。
 
 4. replication
 - 作資料複製備份用，為異地備源保存之處。
-- 限定實作於不同機台，故 N 台叢集 (cluster) 最多能有 N 份 replication。<br>
-例：5 brokers 叢集，最多可設置 R.F.=5 (即各 broker 都具其他台之複製備份)，若設定 R.F.=3，則可容許 5-3 台 broker 發生離線或故障，藉此提升運作彈性。
+- `限定實作於不同機台`，故 N 台叢集 (cluster) 最多能有 N 份 replication。<br>
+例：5 brokers 叢集，最多可設置 R.F.=5 (即`各 broker 都具其他台之複製備份`)，若設定 R.F.=3，則可容許 5-3 台 broker 發生離線或故障，藉此提升運作彈性。
